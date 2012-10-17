@@ -16,20 +16,22 @@ class MoviesController < ApplicationController
 
     if params.has_key? :sort_by
       if params[:sort_by] == "rating"
-        @movies = Movie.order("rating").all
         @rating_css_class = "hilite"
+        return @movies = Movie.order("rating").all
       elsif params[:sort_by] == "title"
-        @movies = Movie.order("title").all
         @sort_column = "title"
         @title_css_class = "hilite"
+        return @movies = Movie.order("title").all
       elsif params[:sort_by] == "release_date"
-        @movies = Movie.order("release_date").all
         @sort_column = "release_date"
         @release_date_css_class="hilite"
-      else
-        @movies = Movie.all
+        return @movies = Movie.order("release_date").all
       end
     end
+    
+    #If we didn't supply any type of key, we should default 
+    #to returning the unsorted list o' movies
+    return @movies = Movie.all
   end
 
   def new
