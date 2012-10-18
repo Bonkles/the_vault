@@ -29,21 +29,29 @@ class MoviesController < ApplicationController
     end
   end
   
-  
   def index
     
     #If the user checked any of the ratings boxes
     if params.has_key? :ratings
       @ratings_filter = params[:ratings].keys
     end
+    
     #If rating or title are passed, order the elements as such! 
-    #Otherwise, display the items as normal
+    #rated_movies = Movie.where(:rating => @ratings_filter)
     if params.has_key? :sort_by
         @sort_column = params[:sort_by]
         instance_variable_set("@#{@sort_column}_col_class", "hilite")
-        return @movies = Movie.order(@sort_column).all
+    #Otherwise, display the items as normal
     end
-    return @movies = Movie.all
+  
+    movie_query = Movie.where(:rating => @ratings_filter)
+    if (@sort_column == nil)
+      @movies = movie_query.all
+    else
+      @movies = movie_query.order(@sort_column).all
+    end
+    
+    @movies
   end
 
   def new
