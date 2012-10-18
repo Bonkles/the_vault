@@ -7,22 +7,29 @@ class MoviesController < ApplicationController
   end
 
   def index
+    
+    @title_col_class = nil
+    @date_col_class = nil
+    @rating_col_class = nil
     #If rating or title are passed, order the elements as such! 
     #Otherwise, display the items as normal
     if params.has_key? :sort_by
       if params[:sort_by] == "rating"
-        @movies = Movie.order("rating").all
         @sort_column = "rating"
+        @rating_col_class = "hilite"
+        return @movies = Movie.order("rating").all
       elsif params[:sort_by] == "title"
-        @movies = Movie.order("title").all
         @sort_column = "title"
+        @title_col_class = "hilite"
+        return @movies = Movie.order("title").all
       elsif params[:sort_by] == "release_date"
-        @movies = Movie.order("release_date").all
         @sort_column = "release_date"
+        @date_col_class = "hilite"
+        return @movies = Movie.order("release_date").all
       else
-        @movies = Movie.all
       end
     end
+    return @movies = Movie.all
   end
 
   def new
