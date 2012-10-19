@@ -32,7 +32,6 @@ before_filter :assemble_ratings
     end
     
     #If rating or title are passed, order the elements as such! 
-    #rated_movies = Movie.where(:rating => @ratings_filter)
     if params.has_key? :sort_by
         @sort_column = params[:sort_by]
     end
