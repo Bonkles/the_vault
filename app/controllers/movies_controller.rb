@@ -40,7 +40,6 @@ before_filter :assemble_ratings
     if (@sort_column == nil)
       @movies = movie_query.all
     else
-      debugger
       @movies = movie_query.order(@sort_column).all
     end
     
