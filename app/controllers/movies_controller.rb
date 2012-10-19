@@ -21,6 +21,9 @@ before_filter :assemble_ratings
   end
   
   def index
+    #Assume we don't need to redirect the browser. 
+    redirect = false
+
     if params.has_key? :ratings
       #if they passed in a hash, we are only interested in the keys. This is what we get if we click the submit button in the top form. 
       @ratings_filter = params[:ratings]
@@ -28,8 +31,8 @@ before_filter :assemble_ratings
     elsif session.has_key? :ratings
         @ratings_filter = session[:ratings]
       #Since we didn't supply the string in the params, we need to provide a RESTful route!
-      flash.keep
-#      redirect_to
+        params[:ratings] = session[:ratings]
+        redirect = true
     end
 
     #If rating or title are passed, order the elements as such! 
@@ -38,6 +41,13 @@ before_filter :assemble_ratings
       session[:sort_by] = @sort_column
     elsif session.has_key? :sort_by #If there was no key passed in via the URI, use the session info instead.
       @sort_column = session[:sort_by]      
+      params[:sort_by] = session[:sort_by]      
+      redirect = true
+    end
+
+    if redirect
+      flash.keep
+      redirect_to params
     end
 
     movie_query = Movie.where(:rating => @ratings_filter.keys)
