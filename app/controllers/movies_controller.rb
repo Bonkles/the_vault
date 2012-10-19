@@ -21,21 +21,32 @@ before_filter :assemble_ratings
   end
   
   def index
-    #If the user checked any of the ratings boxes, and hit 'submit'
     if params.has_key? :ratings
-      @ratings_filter = params[:ratings].keys
+      #if they passed in a hash, we are only interested in the keys. This is what we get if we click the submit button in the top form. 
+      if params[:ratings].respond_to? :keys
+        @ratings_filter = params[:ratings].keys
+        session[:ratings] = params[:ratings].keys #save these params in the session. 
+      else
+        #otherwise, we're chucking an arry around. Assume that type. 
+        @ratings_filter = params[:ratings]
+        session[:ratings] = params[:ratings] #save these params in the session. 
+      end
+    elsif session.has_key? :ratings
+      if session[:ratings].respond_to? :keys
+        @ratings_filter = session[:ratings].keys
+      else
+        @ratings_filter = session[:ratings]
+      end        
     end
 
-    #If the user simply clicked on a column title
-    if params.has_key? :ratings_saved
-      @ratings_filter = params[:ratings_saved]
-    end
-    
     #If rating or title are passed, order the elements as such! 
     if params.has_key? :sort_by
-        @sort_column = params[:sort_by]
+      @sort_column = params[:sort_by]
+      session[:sort_by] = @sort_column
+    elsif session.has_key? :sort_by
+      @sort_column = session[:sort_by]      
     end
-  
+
     movie_query = Movie.where(:rating => @ratings_filter)
     if (@sort_column == nil)
       @movies = movie_query.all
