@@ -21,7 +21,6 @@ before_filter :assemble_ratings
   end
   
   def index
-    
     #If the user checked any of the ratings boxes, and hit 'submit'
     if params.has_key? :ratings
       @ratings_filter = params[:ratings].keys
@@ -29,7 +28,7 @@ before_filter :assemble_ratings
 
     #If the user simply clicked on a column title
     if params.has_key? :ratings_saved
-      @ratings_filter = params[:ratings]
+      @ratings_filter = params[:ratings_saved]
     end
     
     #If rating or title are passed, order the elements as such! 

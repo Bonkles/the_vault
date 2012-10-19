@@ -11,9 +11,9 @@
 %table#movies
   %thead
     %tr
-    %th{:class => @sort_column == 'title' ? 'hilite' : ''}= link_to "Movie Title", movies_path({:sort_by => "title"}), :id => "title_header", :ratings_saved => @ratings_filter 
-    %th{:class => @sort_column == 'rating' ? 'hilite' : ''}= link_to "Rating", movies_path({:sort_by => "rating"}), :id => "rating_header", :ratings_saved => @ratings_filter
-    %th{:class => @sort_column == 'date' ? 'hilite' : ''}= link_to "Release Date", movies_path({:sort_by => "release_date"}), :id => "release_date_header", :ratings_saved => @ratings_filter
+    %th{:class => @sort_column == 'title' ? 'hilite' : ''}= link_to "Movie Title", movies_path({:sort_by => "title", :ratings_saved => @ratings_filter}), :id => "title_header"
+    %th{:class => @sort_column == 'rating' ? 'hilite' : ''}= link_to "Rating", movies_path({:sort_by => "rating", :ratings_saved => @ratings_filter}), :id => "rating_header"
+    %th{:class => @sort_column == 'date' ? 'hilite' : ''}= link_to "Release Date", movies_path({:sort_by => "release_date", :ratings_saved => @ratings_filter}), :id => "release_date_header" 
     %th More Info
   %tbody
     - @movies.each do |movie|
