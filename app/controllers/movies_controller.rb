@@ -1,20 +1,10 @@
 class MoviesController < ApplicationController
+before_filter :assemble_ratings
 
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
-  end
-
-  def initialize
-    @title_col_class = nil
-    @date_col_class = nil
-    @rating_col_class = nil
-    #Look through the db and assemble a list of possible ratings.
-    assemble_ratings
-    #enabled ratings checkboxes! Turn all on by default.
-    @ratings_filter = @all_ratings 
-    super
   end
 
 #This method checks the database and assembles an instance variable array
@@ -27,6 +17,7 @@ class MoviesController < ApplicationController
             @all_ratings << movie.rating
       end
     end
+    @ratings_filter = @all_ratings
   end
   
   def index
@@ -40,8 +31,6 @@ class MoviesController < ApplicationController
     #rated_movies = Movie.where(:rating => @ratings_filter)
     if params.has_key? :sort_by
         @sort_column = params[:sort_by]
-        instance_variable_set("@#{@sort_column}_col_class", "hilite")
-    #Otherwise, display the items as normal
     end
   
     movie_query = Movie.where(:rating => @ratings_filter)
