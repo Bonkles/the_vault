@@ -43,7 +43,7 @@ before_filter :assemble_ratings
     if params.has_key? :sort_by
       @sort_column = params[:sort_by]
       session[:sort_by] = @sort_column
-    elsif session.has_key? :sort_by
+    elsif session.has_key? :sort_by #If there was no key passed in via the URI, use the session info instead.
       @sort_column = session[:sort_by]      
     end
 
