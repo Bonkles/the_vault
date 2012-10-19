@@ -10,11 +10,11 @@ before_filter :assemble_ratings
 #This method checks the database and assembles an instance variable array
 #whose elements consist of the ratings present.   
   def assemble_ratings
-    @all_ratings = Array.new
+    @all_ratings = Hash.new
     ratings_movies = Movie.all
         ratings_movies.each do |movie|
-          unless @all_ratings.include? movie.rating
-            @all_ratings << movie.rating
+          unless @all_ratings.keys.include? movie.rating
+            @all_ratings[movie.rating] = 1
       end
     end
     @ratings_filter = @all_ratings
@@ -23,20 +23,13 @@ before_filter :assemble_ratings
   def index
     if params.has_key? :ratings
       #if they passed in a hash, we are only interested in the keys. This is what we get if we click the submit button in the top form. 
-      if params[:ratings].respond_to? :keys
-        @ratings_filter = params[:ratings].keys
-        session[:ratings] = params[:ratings].keys #save these params in the session. 
-      else
-        #otherwise, we're chucking an arry around. Assume that type. 
-        @ratings_filter = params[:ratings]
-        session[:ratings] = params[:ratings] #save these params in the session. 
-      end
+      @ratings_filter = params[:ratings]
+      session[:ratings] = params[:ratings] #save these params in the session. 
     elsif session.has_key? :ratings
-      if session[:ratings].respond_to? :keys
-        @ratings_filter = session[:ratings].keys
-      else
         @ratings_filter = session[:ratings]
-      end        
+      #Since we didn't supply the string in the params, we need to provide a RESTful route!
+      flash.keep
+#      redirect_to
     end
 
     #If rating or title are passed, order the elements as such! 
@@ -47,7 +40,7 @@ before_filter :assemble_ratings
       @sort_column = session[:sort_by]      
     end
 
-    movie_query = Movie.where(:rating => @ratings_filter)
+    movie_query = Movie.where(:rating => @ratings_filter.keys)
     if (@sort_column == nil)
       @movies = movie_query.all
     else
