@@ -1,0 +1,13 @@
+-# edit.html.haml using partial
+
+%h1 Edit Existing VMT File
+
+= form_tag vmt_file_path(@movie), :method => :put do
+
+  = label :vmt_file, :filename, 'Filename'
+  = text_field :vmt_file, 'filename'
+
+  = label :vmt_file, :oem, 'OEM'
+  = select :vmt_file, :oem, ['HP','Fujitsu','Dell','IBM','Hitach']
+
+  = submit_tag 'Update VMT File Info'

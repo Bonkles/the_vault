@@ -21,3 +21,54 @@ movies = [{:title => 'Aladdin', :rating => 'G', :release_date => '25-Nov-1992'},
 movies.each do |movie|
   Movie.create!(movie)
 end
+
+
+VmtFile.create!(filename: 'test1.vmt',
+description: 'A test VMT file.', 
+vmtdata: 'Lorem ipsem something something\nsomething something\nsomething something',
+family: 'BE3',
+is_locked: false,
+last_updated: DateTime.strptime("09/01/2012 06:00", "%m/%d/%Y %H:%M"),
+last_update_by: 'Benjamin Clark',
+eco: false,
+in_agile: false,
+oem: 'HP',
+oem_group: 'BCS',
+revision:1)
+
+VmtFile.create!(filename: 'test2.vmt',
+description: 'Another test VMT file.', 
+vmtdata: 'Lorem ipsem something something\nsomething something\nsomething something',
+family: 'Lancer',
+is_locked: false,
+last_updated: DateTime.strptime("09/01/2012 06:01", "%m/%d/%Y %H:%M"),
+last_update_by: 'Udrekh Gavale',
+eco: false,
+in_agile: false,
+oem: 'EMC',
+revision:1)
+
+VmtFile.create!(filename: 'test3.vmt',
+description: 'Yet another test VMT file.', 
+vmtdata: 'Lorem ipsem something something\nsomething something\nsomething something',
+family: 'Skyhawk',
+is_locked: false,
+last_updated: DateTime.strptime("09/01/2012 06:02", "%m/%d/%Y %H:%M"),
+last_update_by: 'John Inda',
+eco: false,
+in_agile: false,
+oem: 'Fujitsu',
+revision:1)
+
+
+VmtFile.create!(filename: 'test4.vmt',
+description: 'And yes, still *another* test VMT file.', 
+vmtdata: 'Lorem ipsem something something\nsomething something\nsomething something',
+family: 'BE3',
+is_locked: false,
+last_updated: DateTime.strptime("09/01/2012 06:03", "%m/%d/%Y %H:%M"),
+last_update_by: 'John Inda',
+eco: false,
+in_agile: false,
+oem: 'Fujitsu',
+revision:1)

@@ -1,0 +1,26 @@
+-#  This file is app/views/vmt_files/index.html.haml
+%h1 VMT Files
+= form_tag vmt_files_path, {:id => "oems_form", :method => :get} do
+  Include: 
+  - @all_oems.each_key do |oem|
+    = oem
+    = check_box_tag "oems[#{oem}]", 1, @oems_filter.keys.include?(oem)
+  = hidden_field_tag "sort_by", "#{@sort_column}"
+  = submit_tag 'Refresh', :id => "oems_submit"
+  
+%table#vmt_files
+  %thead
+    %tr
+    %th{:class => @sort_column == 'filename' ? 'hilite' : ''}= link_to "VMT Filename", vmt_files_path({:sort_by => "filename", :oems => @oems_filter}), :id => "filename_header"
+    %th{:class => @sort_column == 'oem' ? 'hilite' : ''}= link_to "Oem", vmt_files_path({:sort_by => "oem", :oems => @oems_filter}), :id => "oem_header"
+    %th{:class => @sort_column == 'last_updated' ? 'hilite' : ''}= link_to "Release Date", vmt_files_path({:sort_by => "last_updated", :oems => @oems_filter}), :id => "last_updated_header" 
+    %th More Info
+  %tbody
+    - @vmt_files.each do |vmt_file|
+      %tr
+        %td= vmt_file.filename 
+        %td= vmt_file.oem
+        %td= vmt_file.last_updated
+        %td= link_to "Details for #{vmt_file.filename}", vmt_file_path(vmt_file)
+
+= link_to 'Add new VMT FIle', new_vmt_file_path

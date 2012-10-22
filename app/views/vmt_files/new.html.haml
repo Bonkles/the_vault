@@ -1,0 +1,14 @@
+%h1 Create New VMT File
+
+= form_tag vmt_files_path do
+
+  = label :vmt_file, :filename, 'Filename'
+  = text_field :vmt_file, 'filename'
+
+  = label :vmt_file, :oem, 'OEM'
+  = select :vmt_file, :oem, ['HP','Fujitsu','Dell','IBM','Hitachi']
+
+  = label :vmt_file, :last_updated, 'Last Updated'
+  = date_select :vmt_file, :last_updated
+
+  = submit_tag 'Save Changes to VMT File'
