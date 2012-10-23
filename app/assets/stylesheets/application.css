@@ -16,37 +16,31 @@ a {
   text-decoration: underline;
   font-weight: bold;
 }
-h1 {
-  color: maroon;
-  font-size: 150%;
-  font-style: italic;
-  display: block;
-  width: 100%;
-  border-bottom: 1px solid DarkSlateGrey;
-}
-h1.title {
-  margin: 0 0 1em;
-  padding: 10px;
-  background-color: orange;
-  color: white;
-  border-bottom: 4px solid gold;
-  font-size: 2em;
-  font-style: normal;
-}
-table#movies {
+
+table#vmt_files {
   margin: 10px;
   border-collapse: collapse;
   width: 100%;
   border-bottom: 2px solid black;
 }
-table#movies th {
-  border: 2px solid white;
-  font-weight: bold;
-  background-color: wheat;
-}
-table#movies th, table#movies td {
+
+table#vmt_files th.wide, table#vmt_files td.wide {
   padding: 4px;
-  text-align: left;
+  text-align: center;
+  width: 15%;
+}
+
+table#vmt_files th.narrow, table#vmt_files td.narrow{
+  padding: 2px;
+  text-align: center;
+  width: 8%;
+}
+
+table#vmt_files td span{
+	text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
 }
 #notice #warning {
   background: rosybrown;

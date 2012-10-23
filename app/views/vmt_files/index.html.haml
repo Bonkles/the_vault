@@ -8,29 +8,31 @@
   = hidden_field_tag "sort_by", "#{@sort_column}"
   = submit_tag 'Refresh', :id => "oems_submit"
 
-#vmt_listing  
+#vmt_listing{:class => 'ui-widget ui-state-default', :width => '100%'}  
   %table#vmt_files
     %thead
       %tr
-      %th{:class => @sort_column == 'filename' ? 'hilite' : ''}= link_to "VMT Filename", vmt_files_path({:sort_by => "filename", :oems => @oems_filter}), :id => "filename_header"
-      %th{:class => @sort_column == 'oem' ? 'hilite' : ''}= link_to "Oem", vmt_files_path({:sort_by => "oem", :oems => @oems_filter}), :id => "oem_header"
-      %th{:class => @sort_column == 'last_updated' ? 'hilite' : ''}= link_to "Last Updated", vmt_files_path({:sort_by => "last_updated", :oems => @oems_filter}), :id => "last_updated_header" 
-      %th Agile
-      %th ECO
-      %th Locked?
-      %th More Info
+        %th.wide{:class => @sort_column == 'filename' ? 'hilite' : ''}= link_to "Name", vmt_files_path({:sort_by => "filename", :oems => @oems_filter}), :id => "filename_header"
+        %th.wide{:class => @sort_column == 'oem' ? 'hilite' : ''}= link_to "Oem", vmt_files_path({:sort_by => "oem", :oems => @oems_filter}), :id => "oem_header"
+        %th.wide{:class => @sort_column == 'last_updated' ? 'hilite' : ''}= link_to "Last Updated", vmt_files_path({:sort_by => "last_updated", :oems => @oems_filter}), :id => "last_updated_header" 
+        %th.wide Family
+        %th.narrow Agile
+        %th.narrow ECO
+        %th.narrow Locked?
+        %th.wide More Info
     %tbody
       - @vmt_files.each do |vmt_file|
         %tr
-          %td= vmt_file.filename 
-          %td= vmt_file.oem
-          %td= vmt_file.last_updated
-          %td 
+          %td.wide= vmt_file.filename 
+          %td.wide= vmt_file.oem
+          %td.wide= vmt_file.last_updated
+          %td.wide= vmt_file.family
+          %td.narrow 
             %span{:class => vmt_file.in_agile ? 'ui-icon ui-icon-check' : 'ui-icon ui-icon-close'}
-          %td 
+          %td.narrow 
             %span{:class => vmt_file.eco ? 'ui-icon ui-icon-check' : 'ui-icon ui-icon-close'}
-          %td 
+          %td.narrow 
             %span{:class => vmt_file.is_locked ? 'ui-icon ui-icon-locked' : 'ui-icon ui-icon-unlocked'}
-          %td= link_to "Details for #{vmt_file.filename}", vmt_file_path(vmt_file)
+          %td.wide= link_to "Details for #{vmt_file.filename}", vmt_file_path(vmt_file)
 
 = link_to 'Add new VMT FIle', new_vmt_file_path

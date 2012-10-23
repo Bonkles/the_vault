@@ -7,7 +7,8 @@
     = csrf_meta_tags
 
   %body
-    %h1.title The Vault
+    #top-bar-area{:class => 'ui-helper-clearfix ui-helper-reset ui-widget ui-widget-header'}
+      %h1.title The Vault
     #main
       - if flash[:notice]
         #notice.message= flash[:notice]
