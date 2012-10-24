@@ -4,7 +4,7 @@ set :user, 'saasbook'
 set :domain, 'localhost'
 set :application, "the_vault"
 set :repository,  "https://github.com/Bonkles/the_vault.git"
-set :deploy_to, "/home/ubuntu/Documents"
+set :deploy_to, "/home/ubuntu/Documents/the_vault"
 #Force password prompts
 default_run_options[:pty] = true
 
