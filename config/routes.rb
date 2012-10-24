@@ -15,6 +15,9 @@ Rottenpotatoes::Application.routes.draw do
   resources :movies
   resources :vmt_files
 
+  #Route to perform undo/redo actions.
+  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
+  
   # Sample resource route with options:
   #   resources :products do
   #     member do

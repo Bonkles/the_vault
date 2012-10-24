@@ -29,6 +29,10 @@ gem 'jquery-rails'
 # Use unicorn as the web server
 # gem 'unicorn'
 
+#Track all database changes
+ gem 'paper_trail'
+
+
 # Deploy with Capistrano
  gem 'capistrano'
 

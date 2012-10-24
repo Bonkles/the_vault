@@ -11,8 +11,8 @@
       %h1.title The Vault
     #main
       - if flash[:notice]
-        #notice.message= flash[:notice]
+        #notice.message= raw(flash[:notice])
       - elsif flash[:warning]
-        #warning.message= flash[:warning]
+        #warning.message= raw(flash[:warning])
 
       = yield

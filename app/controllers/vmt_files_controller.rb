@@ -75,16 +75,25 @@ before_filter :assemble_oems
 
   def update
     @vmt_file = VmtFile.find params[:id]
-    @vmt_file.update_attributes!(params[:vmt_file])
-    flash[:notice] = "#{@vmt_file.filename} was successfully updated."
-    redirect_to vmt_file_path(@vmt_file)
+    if @vmt_file.update_attributes!(params[:vmt_file])
+      redirect_to vmt_files_path, :notice => "Successfully updated file. #{undo_link}."
+    else
+      render :action => 'edit'
+    end
   end
 
   def destroy
     @vmt_file = VmtFile.find(params[:id])
-    @vmt_file.destroy
-    flash[:notice] = "VMT file '#{@vmt_file.filename}' deleted."
-    redirect_to vmt_files_path
+    if @vmt_file.destroy
+      redirect_to vmt_files_path, :notice => "Successfully deleted file. #{undo_link}."
+    else
+      render :action => 'edit'
+    end
   end
 
+  private
+
+  def undo_link
+    view_context.link_to("undo", revert_version_path(@vmt_file.versions.scoped.last), :method => :post)
+  end
 end
